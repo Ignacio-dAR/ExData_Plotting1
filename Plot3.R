@@ -1,0 +1,17 @@
+d = read.table("household_power_consumption.txt", header=TRUE, sep=";",dec=".",na.strings="?")
+d1<-subset(d2,Date>=DateLimit[1])
+d2<-subset(d1,Date<=DateLimit[2])
+d2$Date<-as.Date(d2$Date,format="%d/%m/%Y")
+remove(d1)
+
+plot(d2$Sub_metering_1, main="", type="l", xlab="", axes=FALSE, ylab="")
+lines(d2$Sub_metering_2,col="red")
+lines(d2$Sub_metering_3, col="blue")
+box(col="black")
+axis(side=1,col="black",at=c(0,1440,2880),labels=c("Thru","Fri","Sat"), cex.axis=0.8)
+axis(2, col="black", at=c(0,10,20,30), cex.axis=0.8)
+mtext("Energy sub metering", side=2, line=3, col="black", cex=0.8)
+legend("topright",legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),cex=0.8, pch="-",pt.cex=2,col=c("black","red","blue"))
+
+dev.copy(png,file="plot3.png")
+dev.off()
